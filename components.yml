@@ -1,0 +1,246 @@
+components:
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+      type: object
+      properties:
+        message:
+          type: string
+          example: You need to sign in and get a valid Token
+  securitySchemes:
+    AuthToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    StreamMusic:
+      type: string
+      format: binary
+      description: Audio binary file
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwMDEyOTE5NjEwMn0.RbS_MqHNK8ZHzr_00e9ASol7X-QCahRIlucYYGTGe8U
+        userId: 
+          type: integer
+          example: 1
+    SongInfor:
+      type: object
+      properties:
+        youtubeId:
+          type: string
+          example: oKOtzIo-uYw
+        genre: 
+          type: string
+          example: Music
+        title:
+          type: string
+          example: Fugees - Killing Me Softly With His Song (Official Video)
+        artist: 
+          type: string
+          example: TheFugeesVEVO
+        image:
+          type: string
+          example: https://i.ytimg.com/vi/oKOtzIo-uYw/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAmWNobaFgWajWevnGzK5p1zY8KdQ
+        description:
+          type: string
+          example: " "
+          description: Sometime this is blank, due to youtube description
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          example: 1scdecc
+          description: From 5 to 32 characters, no white space
+        password:
+          type: string
+          pattern: "/^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9#@$%]{5,32}$/"
+          example: 12#@acccCc
+          description: 1 number, 1 lowercase, 1 uppercase,8 to 32 character,contain 1 of [# @ $ %]
+    UserAll:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: 1scdecc
+          description: From 5 to 32 characters, no white space
+        name:
+          type: string
+          example: my name
+          description: From 5 to 32 characters
+        image: 
+          type: string
+          example: https://upload.wikimedia.org/wikipedia/commons/4/44/Male_and_Female_mallard_ducks.jpg
+          description: Valid url to image
+    Playlist:
+      type: object
+      properties:
+        name:
+          type: string
+        songList:
+          type: array
+          item:
+            type: string
+          description: List of valid youtube id
+        image: 
+          type: string
+          description: Must be a link to an image
+      example:
+        playlistName: hello
+        songList:
+          - _k3y2tVWK74
+          - A_HekkBbd1M
+          - dUkGrSPbSOE
+          - E8gmARGvPlI
+          - izGwDsrQ1eQ
+          - mHONNcZbwDY
+          - UxxajLWwzqY
+          - wWH75eSQhdc
+          - Zasx9hjo4WY_
+        image: https://upload.wikimedia.org/wikipedia/commons/4/44/Male_and_Female_mallard_ducks.jpg
+    PlaylistInfor:
+      type: object
+      properties:
+        playlistName:
+          type: string
+        songList:
+          type: array
+          item:
+            type: string
+          description: List of valid youtube id
+        id:
+          type: integer
+        userId:
+          type: integer
+        image: 
+          type: string
+          description: Must be a link to an image
+        createdAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+      example:
+        playlistName: hello
+        id: 3
+        songList:
+          - _k3y2tVWK74
+          - A_HekkBbd1M
+          - dUkGrSPbSOE
+          - E8gmARGvPlI
+          - izGwDsrQ1eQ
+          - mHONNcZbwDY
+          - UxxajLWwzqY
+          - wWH75eSQhdc
+          - Zasx9hjo4WY_
+        image: https://upload.wikimedia.org/wikipedia/commons/4/44/Male_and_Female_mallard_ducks.jpg
+        userId: 1
+    PlaylistInforReturn:
+      type: object
+      properties:
+        rowCount:
+          type: integer
+          example: 7
+        page:
+          type: integer
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlaylistInfor"
+    Comment:
+      type: object
+      properties:
+        content:
+          type: string
+          example: lorem ipsum sdef e4t dfgsbh egnk3 fg q GR
+        playlistId:
+          type: integer
+          example: 3
+    CommentInfor:
+      type: object
+      properties:
+        id:
+          type: integer
+        content:
+          type: string
+          example: lorem ipsum sdef e4t dfgsbh egnk3 fg q GR
+        playlistId:
+          type: integer
+        userId:
+          type: integer
+        createdAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+      example:
+        id: 1
+        content: lorem ipsum sdef e4t dfgsbh egnk3 fg q GR
+        playlistId: 3
+        userId: 1
+        createdAt: 2023-11-09 16:22:06.733
+        updatedAt: 2023-11-09 16:22:06.733
+    CommentInforReturn:
+      type: object
+      properties:
+        rowCount:
+          type: integer
+          example: 10
+        page:
+          type: integer
+          example: 1
+        data:
+          type: array
+          items:
+            allOf: 
+              - $ref: "#/components/schemas/CommentInfor"
+              - type: object
+                properties:
+                  createdAt: 
+                    type: string
+                    example: 2023-11-09 16:22:06.733
+                  updatedAt: 
+                    type: string
+                    example: 2023-11-09 16:22:06.733
+    Like:
+      type: object
+      properties:
+        userId:
+          type: integer
+          example: 1
+        playlistId:
+          type: integer
+          example: 3
+    LikeList:
+      type: object
+      properties:
+        data:
+          type: object
+          $ref: "#/components/schemas/Like"
+        page:
+          type: integer
+          example: 1
+        rowCount:
+          type: integer
+          example: 7
+    MessageGood:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Custom message for successful request
+    MessageBad:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Custom message for bad/un authorize request

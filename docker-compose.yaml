@@ -1,0 +1,67 @@
+# version: '3'
+# services:
+#   db:
+#     image: postgres
+#     restart: unless-stopped
+#     container_name: postgres_con
+#     ports:
+#       - 5432:5432
+#     environment:
+#       POSTGRES_USER: ${POSTGRES_USER}
+#       POSTGRES_PASSWORD: mysecretpassword
+#       POSTGRES_DB: ${POSTGRES_DB}
+#       POSTGRES_PORT: ${POSTGRES_PORT}
+#       POSTGRES_LOCAL: ${POSTGRES_HOST}
+#       POSTGRES_HOST_AUTH_METHOD: true
+#     volumes:
+#       # - db_data:/var/lib/postgresql/data_25_10_23
+#       - db_data:/var/lib/postgresql/data
+#   app:
+#     build: .
+#     image: node
+#     expose:
+#       - "3000"
+#     container_name: node_on_postgres_con
+#     restart: unless-stopped
+#     volumes:
+#       - ./dist/data:/app/dist/data
+#     ports:
+#       - 3000:3000
+#     depends_on:
+#       - db
+#     env_file:
+#       - .env.prod
+# volumes:
+#   db_data:
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    container_name: postgres_con
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  app:
+    build: .
+    image: node
+    container_name: node_on_postgres_con
+    restart: unless-stopped
+    volumes:
+      - ./dist/data:/app/dist/data
+    ports:
+      - "3001:3000"  # Sử dụng cổng 3001 bên ngoài nếu 3000 đã bị sử dụng
+    depends_on:
+      - db
+    env_file:
+      - .env.prod
+volumes:
+  db_data:

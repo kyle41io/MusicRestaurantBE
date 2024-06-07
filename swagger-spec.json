@@ -1,0 +1,867 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Crudtodo",
+    "description": "Requre authentication for all routes, except for /login, /register and /logout. Only user can delete their own account and their contents.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "SwaggerHub API CrudTodo - SQL Database"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "SwaggerHubSwaggerHub API CrudTodo - SQL Database"
+    }
+  ],
+  "paths": {
+    "/sql/user": {
+      "get": {
+        "tags": [
+          "Require authentication"
+        ],
+        "description": "Read all user",
+        "operationId": "readAllUser",
+        "responses": {
+          "200": {
+            "description": "get All user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allUsersRes"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Only the User can update their own todo/comment"
+        ],
+        "description": "Require req.session.userId === req.body.id",
+        "operationId": "updateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/sql_user_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully change infors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sql_user_body"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sql/user/{id}": {
+      "get": {
+        "tags": [
+          "Require authentication"
+        ],
+        "description": "Read one user's infor",
+        "operationId": "readOneUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request are accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oneUserRes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Delete user"
+        ],
+        "description": "If the request method is delete, the ID must be the same to req.session.userId.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request are accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sql/todo": {
+      "get": {
+        "tags": [
+          "Require authentication"
+        ],
+        "description": "Read all todo base on req.session.userId",
+        "operationId": "ReadTodoUser",
+        "responses": {
+          "200": {
+            "description": "Get All todo of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Only the User can update their own todo/comment"
+        ],
+        "description": "Require req.session.userId === req.body.id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/sql_todo_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update todo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/todoRes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Require authentication"
+        ],
+        "description": "Create post on req.session.userId",
+        "operationId": "makeNewPost",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/todoReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "New todo created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sql/todo/delete": {
+      "put": {
+        "tags": [
+          "Only the User can update their own todo/comment"
+        ],
+        "description": "Require req.session.userId === req.body.id",
+        "operationId": "deleteTodo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/todo_delete_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully delete comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No comment to delete",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sql/comment": {
+      "get": {
+        "tags": [
+          "Require authentication"
+        ],
+        "description": "Read all user",
+        "operationId": "readAllUserComment",
+        "responses": {
+          "200": {
+            "description": "Read all user's comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/commentList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Only the User can update their own todo/comment"
+        ],
+        "description": "Require req.session.userId === req.body.id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/comment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Require authentication"
+        ],
+        "description": "Make new comment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/comment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "New comment created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sql/comment/delete": {
+      "put": {
+        "tags": [
+          "Only the User can update their own todo/comment"
+        ],
+        "description": "Require req.session.userId === req.body.id",
+        "operationId": "deleteComment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/comment_delete_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully delete comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No comment to delete",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sql/comment/{todo_id}": {
+      "get": {
+        "tags": [
+          "Require authentication"
+        ],
+        "description": "Read all user",
+        "operationId": "readAllTodoComment",
+        "parameters": [
+          {
+            "name": "todo_id",
+            "in": "path",
+            "description": "ID of the todo to read comment in",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Read all todo infor from todo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/commentList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No todo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Block by middleware",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sql/register": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "newUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sql_user_body"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sql/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login and create session for authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userReq"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No comment to delete",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sql/logout": {
+      "delete": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "Successful delete comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "allUsersRes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/oneUserRes"
+        }
+      },
+      "oneUserRes": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Created time",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "Udated time",
+            "format": "date-time"
+          }
+        }
+      },
+      "todoRes": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Created time",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "Udated time",
+            "format": "date-time"
+          }
+        }
+      },
+      "messageRes": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "userReq": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "comment": {
+        "type": "object",
+        "properties": {
+          "todo_id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        }
+      },
+      "commentList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/comment"
+        }
+      },
+      "todoReq": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "sql_user_body": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/userReq"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              }
+            }
+          }
+        ]
+      },
+      "inline_response_200": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/comment"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "commentid": {
+                "type": "integer"
+              },
+              "author": {
+                "type": "integer"
+              }
+            }
+          }
+        ]
+      },
+      "sql_todo_body": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/todoReq"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "todo_id": {
+                "type": "integer"
+              }
+            }
+          }
+        ]
+      },
+      "inline_response_200_1": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/todoRes"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        ]
+      },
+      "todo_delete_body": {
+        "type": "object",
+        "properties": {
+          "commentid": {
+            "type": "integer"
+          }
+        }
+      },
+      "inline_response_200_2": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/comment"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        ]
+      },
+      "comment_delete_body": {
+        "type": "object",
+        "properties": {
+          "commentid": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

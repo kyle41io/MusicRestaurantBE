@@ -13,8 +13,11 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY . .
 
+# Run the build command if necessary (uncomment if needed)
+RUN npm run build
+
 # Expose the desired port (if your Node.js app listens on a specific port)
 EXPOSE 3000
 
-# Start the Node.js application - sudo docker run -p 3000:3000 CrudTodo
+# Start the Node.js application
 CMD ["npm", "start"]

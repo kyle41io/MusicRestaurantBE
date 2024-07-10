@@ -16,3 +16,7 @@
 - sudo docker compose up --build
 - Go to development /3000/api-docs for the swagger docs with JsDocs
 
+
+7678d2e7aa48
+docker exec -it 35358e798485 psql -U khanhbatluc music-restaurant
+docker exec -it 8f6d22a8da54 psql -U postgres -c '\l'

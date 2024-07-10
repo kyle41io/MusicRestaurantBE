@@ -33,7 +33,7 @@ const noAuthRoutes = [authRoute,SwaggerRoute];
 noAuthRoutes.forEach((route) =>  expressRoute.use(route))
 
   defaultRoutes.forEach((route) => {
-    route.use(requireAuth)
+    // route.use(requireAuth)
     expressRoute.use(route);
   })
 

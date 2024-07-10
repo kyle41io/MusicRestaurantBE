@@ -63,8 +63,8 @@ playlistRoute.post(
   validateBody(schemaBodys.playlistNameCheck),
   validateBody(schemaBodys.imageCheck),
   validateBody(schemaBodys.songListCheck),
-  authMutateBody,
-  checkYoutubeIdList,
+  // authMutateBody,
+  // checkYoutubeIdList,
   playlistNewController
 );
 

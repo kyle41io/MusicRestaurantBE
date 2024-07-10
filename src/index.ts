@@ -12,5 +12,5 @@ app.use(expressRoute);
 
 app.listen(PORT, async () => {
   console.log(`PORT ${PORT} is listening`);
-  // createTableConnect()
+  createTableConnect()
 });

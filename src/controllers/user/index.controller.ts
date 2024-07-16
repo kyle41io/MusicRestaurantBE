@@ -1,8 +1,9 @@
 import express, { Request, Response, Application } from "express";
-import { makeUser, editUser, deleteUser, readUserId } from "@/models/user";
+import { makeUser, editUser, deleteUser, readUserId, readUserAll } from "@/models/user";
 import { userIdFromAuth } from "@/validations/JWT.validate";
 
 export const userNewController = express.Router({ mergeParams: true });
+export const userGetControllerAll = express.Router({ mergeParams: true });
 export const userGetControllerId = express.Router({ mergeParams: true });
 export const userEditController = express.Router({ mergeParams: true });
 export const userDeleteController = express.Router({ mergeParams: true });
@@ -11,6 +12,14 @@ const secretKey = `${process.env.PASSWORD_KEY}`;
 userGetControllerId.use(async (req: Request, res: Response) => {
   const id = parseInt(req.params.id as string);
   const result = await readUserId(id);
+  if (result.success) return res.status(200).send(result.data);
+  else return res.status(204).send({});
+});
+
+userGetControllerAll.use(async (req: Request, res: Response) => {
+  const result = await readUserAll();
+  console.log('hi');
+  
   if (result.success) return res.status(200).send(result.data);
   else return res.status(204).send({});
 });

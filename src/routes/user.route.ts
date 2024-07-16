@@ -4,6 +4,7 @@ import {
   userEditController,
   userDeleteController,
   userGetControllerId,
+  userGetControllerAll
 } from "@/controllers/user/index.controller";
 import { authMutateBody } from "@/middlewares/authentication";
 const userRoute = express.Router({ mergeParams: true });
@@ -13,10 +14,16 @@ import { validateParams } from "@/middlewares/validateParams";
 import { validateUsernameExist } from "@/middlewares/RecordExist.middleware";
 
 userRoute.get(
+  "/api/users/all",
+  userGetControllerAll
+);
+
+userRoute.get(
   "/api/users/:id",
   validateParams(schemaParams.idCheck),
   userGetControllerId
 );
+
 
 userRoute.put(
   "/api/users",

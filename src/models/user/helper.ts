@@ -6,6 +6,11 @@ export const readUserIdHelper = async (id: number)=>{
   return user;
 }
 
+export const readUserAllHelper = async ()=>{
+  const user = await userRepository.find({}) 
+  return user;
+}
+
 export const readUserHelper = async ({
   username,
   password,

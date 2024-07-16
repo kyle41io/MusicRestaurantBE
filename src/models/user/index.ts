@@ -4,6 +4,7 @@ import {
   deleteUserHelper,
   editUserHelper,
   readUserIdHelper,
+  readUserAllHelper
 } from "./helper";
 import { deletePlaylistIdHelper } from "../playlist/helper";
 import { playlistRepository } from "@/config/database/typeorm";
@@ -19,6 +20,16 @@ export const readUserId = async (id: number) => {
         name: data.name,
         image: data.avatar,
       },
+    };
+  else return { success: false, message: "No user with this id" };
+};
+
+export const readUserAll = async () => {
+  const data = await readUserAllHelper();
+  if (data)
+    return {
+      success: true,
+      data: data,
     };
   else return { success: false, message: "No user with this id" };
 };

@@ -34,6 +34,9 @@ POSTGRES_HOST=localhost
 
 PASSWORD_KEY=local_dev_password_key_change_me
 YOUTUBE_API_KEY=optional_youtube_data_api_key
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 DOWNLOAD_MUSIC=
 ```
 
@@ -41,8 +44,33 @@ Notes:
 - The variable name is currently spelled `ENVIROMENT` in code.
 - `PASSWORD_KEY` is required for password hashing and JWT signing.
 - `YOUTUBE_API_KEY` is optional but recommended for YouTube search. Without it, the backend falls back to the existing no-key search package.
+- `CLOUDINARY_*` values are required for authenticated playlist image uploads.
 - `DOWNLOAD_MUSIC` was used by the old YouTube-to-MP3 service. That flow is not production-ready.
 - Do not commit real secrets.
+
+## Vercel Deployment
+
+Set these environment variables in the backend Vercel project:
+
+```env
+ENVIROMENT=PROD
+DATABASE_URL=your_neon_postgres_connection_string
+PASSWORD_KEY=your_shared_jwt_secret
+YOUTUBE_API_KEY=your_youtube_data_api_key
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+DOWNLOAD_MUSIC=
+```
+
+The backend supports `DATABASE_URL` for Neon/Vercel. When `DATABASE_URL` exists, it ignores the local `POSTGRES_*` host/user/password variables.
+
+After deployment, verify:
+
+```bash
+curl https://music-restaurant-be.vercel.app/health
+curl https://music-restaurant-be.vercel.app/api-docs/
+```
 
 ## First-Time Local Setup
 

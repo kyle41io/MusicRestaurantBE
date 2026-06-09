@@ -7,19 +7,29 @@ import { Comment } from "./comment";
 import { LikePlaylist } from "./likePlaylist";
 import { YoutubeCache } from "./youtubeId";
 const isLocalhost = process.env.ENVIROMENT === "DEV";
+const databaseUrl = process.env.DATABASE_URL;
 
 export const dataSource = new DataSource({
   type: "postgres",
-  port:
-    process.env.POSTGRES_PORT && parseInt(process.env.POSTGRES_PORT)
-      ? parseInt(process.env.POSTGRES_PORT)
-      : 5432,
-  username: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DB,
+  ...(databaseUrl
+    ? {
+        url: databaseUrl,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      }
+    : {
+        port:
+          process.env.POSTGRES_PORT && parseInt(process.env.POSTGRES_PORT)
+            ? parseInt(process.env.POSTGRES_PORT)
+            : 5432,
+        username: process.env.POSTGRES_USER,
+        password: process.env.POSTGRES_PASSWORD,
+        database: process.env.POSTGRES_DB,
+        host: isLocalhost ? process.env.POSTGRES_LOCAL : process.env.POSTGRES_HOST,
+      }),
   synchronize: false,
   logging: true,
-  host: isLocalhost ? process.env.POSTGRES_LOCAL : process.env.POSTGRES_HOST, // for docker-compose up db, to just run the database
   entities: [Userinfor, PlayList, Comment, LikePlaylist, YoutubeCache],
 });
 export const userRepository = dataSource.getRepository("Userinfor");

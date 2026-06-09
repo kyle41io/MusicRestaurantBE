@@ -1,19 +1,23 @@
 import path from "path";
 import fs from "fs";
+import os from "os";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const checkPath = path.join(__dirname, `../../../data`);
-if(!fs.existsSync(checkPath)) fs.mkdirSync(checkPath)
+export const dataFolder = process.env.VERCEL
+  ? path.join(os.tmpdir(), "music-restaurant-data")
+  : path.join(__dirname, "../../../data");
+
+if (!fs.existsSync(dataFolder)) fs.mkdirSync(dataFolder, { recursive: true });
+
 export const allMusicId = () => {
-  const file = path.join(__dirname, `../../../data`);
-  const fileList = fs.readdirSync(file);
+  const fileList = fs.readdirSync(dataFolder);
   return fileList;
 };
 
 export const idToMusic = (id: String) => {
   try {
-    const file = path.join(__dirname, `../../../data/${id}`);
+    const file = path.join(dataFolder, `${id}`);
     const fileList = fs.readdirSync(file);
     return {songPath: path.join(file, fileList[0]), success: true};
   } catch {
@@ -21,6 +25,3 @@ export const idToMusic = (id: String) => {
     // error check to prevent ts bug
   }
 };
-
-
-export const dataFolder = path.join(__dirname, "../../../data");

@@ -3,8 +3,8 @@ import {
   removeLike,
   readPlaylistFromUserLike,
   readUserLikePlaylist,
-} from "@/models/like";
-import { userIdFromAuth } from "@/validations/JWT.validate";
+} from "../../models/like";
+import { userIdFromAuth } from "../../validations/JWT.validate";
 import express, { Request, Response, Application } from "express";
 export const makeLikeController = express.Router({ mergeParams: true });
 

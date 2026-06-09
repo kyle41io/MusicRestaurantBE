@@ -5,20 +5,20 @@ import {
   playlistUserControllerReadTime,
   playlistDeleteController,
   playlistEditController,
-} from "@/controllers/playlist/index.controller";
-import { authMutateBody } from "@/middlewares/authentication";
+} from "../controllers/playlist/index.controller";
+import { authMutateBody } from "../middlewares/authentication";
 const playlistRoute = express.Router({ mergeParams: true });
 import {
   schemaBodys,
   schemaQuerys,
   schemaParams,
-} from "@/validations/validateGeneral";
-import { validateBody } from "@/middlewares/validateBody";
-import { validateQuery } from "@/middlewares/validateQuery";
-import { validateParams } from "@/middlewares/validateParams";
-import { validateUsernameExist } from "@/middlewares/RecordExist.middleware";
-import { validateYoutubeSongList } from "@/validations/youtube.validate";
-import { checkYoutubeIdList } from "@/middlewares/youtube.middleware";
+} from "../validations/validateGeneral";
+import { validateBody } from "../middlewares/validateBody";
+import { validateQuery } from "../middlewares/validateQuery";
+import { validateParams } from "../middlewares/validateParams";
+import { validateUsernameExist } from "../middlewares/RecordExist.middleware";
+import { validateYoutubeSongList } from "../validations/youtube.validate";
+import { checkYoutubeIdList } from "../middlewares/youtube.middleware";
 
 playlistRoute.get(
   "/api/playlists",

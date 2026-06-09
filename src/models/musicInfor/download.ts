@@ -1,12 +1,12 @@
 import axios from "axios";
 import dotenv from "dotenv";
 import fs from "fs";
-import { idToMusic, dataFolder, allMusicId } from "@/config/helper/musicFolder";
-import { optionsDownload } from "@/config/helper/constant";
+import { idToMusic, dataFolder, allMusicId } from "../../config/helper/musicFolder";
+import { optionsDownload } from "../../config/helper/constant";
 import { musicFromYoutubeId } from "./helper";
 import NodeID3 from "node-id3";
-import { ytCacheRepository } from "@/config/database/typeorm";
-import { youtubePicFromId } from "@/config/helper/constant";
+import { ytCacheRepository } from "../../config/database/typeorm";
+import { youtubePicFromId } from "../../config/helper/constant";
 
 dotenv.config();
 

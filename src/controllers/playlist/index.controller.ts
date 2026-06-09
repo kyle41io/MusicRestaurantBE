@@ -6,8 +6,8 @@ import {
   readAllPlaylistTimeTop,
   deletePlaylistId,
   updatePlaylistId,
-} from "@/models/playlist";
-import { userIdFromAuth } from "@/validations/JWT.validate";
+} from "../../models/playlist";
+import { userIdFromAuth } from "../../validations/JWT.validate";
 export const playlistNewController = express.Router({ mergeParams: true });
 
 export const playlistGetController = express.Router({ mergeParams: true });

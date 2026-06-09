@@ -1,4 +1,4 @@
-import { hashPassword } from "@/config/helper/hashPassword";
+import { hashPassword } from "../../config/helper/hashPassword";
 import {
   addUserHelper,
   deleteUserHelper,
@@ -7,7 +7,7 @@ import {
   readUserAllHelper
 } from "./helper";
 import { deletePlaylistIdHelper } from "../playlist/helper";
-import { playlistRepository } from "@/config/database/typeorm";
+import { playlistRepository } from "../../config/database/typeorm";
 
 export const readUserId = async (id: number) => {
   const data = await readUserIdHelper(id);

@@ -2,7 +2,7 @@ import { rejects } from "assert";
 import { regex5minLess } from "./regex.validate";
 import * as yt from "youtube-search-without-api-key";
 import { resolve } from "path";
-import { ytCacheRepository } from "@/config/database/typeorm";
+import { ytCacheRepository } from "../config/database/typeorm";
 import NodeID3 from "node-id3";
 import axios from "axios";
 

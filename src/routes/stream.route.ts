@@ -3,11 +3,11 @@ const streamRoute = express.Router({ mergeParams: true });
 import {
   streamController,
   streamControllerpost,
-} from "@/controllers/stream/index.controller";
+} from "../controllers/stream/index.controller";
 import {
   checkYoutubeId,
   checkYoutubeIdList,
-} from "@/middlewares/youtube.middleware";
+} from "../middlewares/youtube.middleware";
 // should return {success: boolean, data? , message?}
 // streamRoute.get("/api/stream", priviledgeMiddleware, streamController);
 streamRoute.get(

@@ -3,7 +3,7 @@ import {
   usernameExist,
   playlistExist,
   likeExist,
-} from "@/validations/RecordExist.validate";
+} from "../validations/RecordExist.validate";
 
 export const validateUsernameExist = async (
   req: Request,

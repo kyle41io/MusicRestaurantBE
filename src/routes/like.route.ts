@@ -5,19 +5,19 @@ import {
   readLikeController_Playlist,
   readLikeController_User,
   readLikeController_Query,
-} from "@/controllers/like";
-import { validateLikeExist } from "@/middlewares/RecordExist.middleware";
+} from "../controllers/like";
+import { validateLikeExist } from "../middlewares/RecordExist.middleware";
 const likeRoute = express.Router({ mergeParams: true });
-import { validateBody } from "@/middlewares/validateBody";
-import { validateUsernameExist } from "@/middlewares/RecordExist.middleware";
-import { validateParams } from "@/middlewares/validateParams";
+import { validateBody } from "../middlewares/validateBody";
+import { validateUsernameExist } from "../middlewares/RecordExist.middleware";
+import { validateParams } from "../middlewares/validateParams";
 import {
   schemaParams,
   schemaBodys,
   schemaQuerys,
-} from "@/validations/validateGeneral";
-import { validateQuery } from "@/middlewares/validateQuery";
-import { authMutateBody } from "@/middlewares/authentication";
+} from "../validations/validateGeneral";
+import { validateQuery } from "../middlewares/validateQuery";
+import { authMutateBody } from "../middlewares/authentication";
 
 likeRoute.get(
   "/api/likes",

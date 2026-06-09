@@ -1,5 +1,5 @@
 import express, { Request, Response, Application } from "express";
-import { authSignIn } from "@/models/auth";
+import { authSignIn } from "../../models/auth";
 import {
   readCommentFromPlaylist_UserSort,
   readCommentFromUserAndPlaylist_TimeSort,
@@ -7,9 +7,9 @@ import {
   makeComment,
   deleteComment,
   UpdateComment,
-} from "@/models/comment";
+} from "../../models/comment";
 import dotenv from "dotenv";
-import { userIdFromAuth } from "@/validations/JWT.validate";
+import { userIdFromAuth } from "../../validations/JWT.validate";
 dotenv.config();
 const secretKey = `${process.env.PASSWORD_KEY}`;
 

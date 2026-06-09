@@ -2,7 +2,7 @@ import express, { Request, Response, Application } from "express";
 import {
   encryptAuth,
   userIdFromAuth,
-} from "@/validations/JWT.validate";
+} from "../validations/JWT.validate";
 
 import dotenv from "dotenv";
 dotenv.config();

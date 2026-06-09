@@ -2,9 +2,9 @@ import {
   commentlistRepository,
   likeListRepository,
   playlistRepository,
-} from "@/config/database/typeorm";
-import { PlayList } from "@/config/database/typeorm/playlist";
-import { PLAYLIST_LIMIT } from "@/config/helper/constant";
+} from "../../config/database/typeorm";
+import { PlayList } from "../../config/database/typeorm/playlist";
+import { PLAYLIST_LIMIT } from "../../config/helper/constant";
 import { readOnePlaylistId } from ".";
 import { deleteCommentHelper } from "../comment/helper";
 export const addNewPlaylistHelper = async ({

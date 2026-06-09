@@ -1,4 +1,4 @@
-import { hashPassword } from "@/config/helper/hashPassword";
+import { hashPassword } from "../../config/helper/hashPassword";
 import { readUserHelper } from "./helper";
 export const authSignIn = async ({
     username,

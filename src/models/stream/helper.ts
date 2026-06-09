@@ -1,5 +1,5 @@
 import * as fs from "fs/promises";
-import { idToMusic } from "@/config/helper/musicFolder";
+import { idToMusic } from "../../config/helper/musicFolder";
 export const streamMusic = async (id: string) => {
   const pathItem = idToMusic(id);
   if (pathItem.success) {

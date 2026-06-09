@@ -1,9 +1,8 @@
-import "./register-alias";
 import express, { Request, Response, Application } from "express";
 import configApp from "./config/index";
 import expressRoute from "./routes/index.route";
-import { createTableConnect } from "@/config/helper/startup";
-import errorHandler from "@/config/errorException";
+import { createTableConnect } from "./config/helper/startup";
+import errorHandler from "./config/errorException";
 import { SwaggerRoute } from "./routes/swagger.route";
 
 const app = express();

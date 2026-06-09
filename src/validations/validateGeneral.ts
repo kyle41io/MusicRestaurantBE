@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { regexPassword, regexUrlImage, regexUsername } from "./regex.validate";
-import { USERNAME_VALIDATE, COMMENT_VALIDATE } from "@/config/helper/constant";
+import { USERNAME_VALIDATE, COMMENT_VALIDATE } from "../config/helper/constant";
 
 export const schemaBodys = {
   usernameAndPassword: Joi.object().keys({

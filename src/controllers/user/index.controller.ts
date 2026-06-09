@@ -1,6 +1,6 @@
 import express, { Request, Response, Application } from "express";
-import { makeUser, editUser, deleteUser, readUserId, readUserAll } from "@/models/user";
-import { userIdFromAuth } from "@/validations/JWT.validate";
+import { makeUser, editUser, deleteUser, readUserId, readUserAll } from "../../models/user";
+import { userIdFromAuth } from "../../validations/JWT.validate";
 
 export const userNewController = express.Router({ mergeParams: true });
 export const userGetControllerAll = express.Router({ mergeParams: true });

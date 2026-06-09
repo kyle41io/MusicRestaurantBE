@@ -1,6 +1,6 @@
-import { Comment } from "@/config/database/typeorm/comment";
-import { commentlistRepository } from "@/config/database/typeorm";
-import { COMMENT_LIMIT } from "@/config/helper/constant";
+import { Comment } from "../../config/database/typeorm/comment";
+import { commentlistRepository } from "../../config/database/typeorm";
+import { COMMENT_LIMIT } from "../../config/helper/constant";
 
 export const makeCommentHelper = async ({
   userId,

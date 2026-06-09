@@ -1,5 +1,5 @@
-import { userRepository } from "@/config/database/typeorm";
-import { Userinfor } from "@/config/database/typeorm/user";
+import { userRepository } from "../../config/database/typeorm";
+import { Userinfor } from "../../config/database/typeorm/user";
 
 export const readUserIdHelper = async (id: number)=>{
   const user = await userRepository.findOne({where: {id}}) 

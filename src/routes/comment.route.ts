@@ -8,17 +8,17 @@ import {
   readCommentController_Query,
   editCommentController,
   deleteCommentController,
-} from "@/controllers/comment";
-import { validateBody } from "@/middlewares/validateBody";
-import { validateParams } from "@/middlewares/validateParams";
-import { validateQuery } from "@/middlewares/validateQuery";
+} from "../controllers/comment";
+import { validateBody } from "../middlewares/validateBody";
+import { validateParams } from "../middlewares/validateParams";
+import { validateQuery } from "../middlewares/validateQuery";
 import {
   schemaBodys,
   schemaParams,
   schemaQuerys,
-} from "@/validations/validateGeneral";
-import { authMutateBody } from "@/middlewares/authentication";
-import { validatePlaylistExist } from "@/middlewares/RecordExist.middleware";
+} from "../validations/validateGeneral";
+import { authMutateBody } from "../middlewares/authentication";
+import { validatePlaylistExist } from "../middlewares/RecordExist.middleware";
 
 commentRoute.get(
   "/api/comments",

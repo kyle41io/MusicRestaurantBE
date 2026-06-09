@@ -1,7 +1,7 @@
 import express, { Request, Response, Application } from "express";
-import { musicYoutubeSearch } from "@/models/musicInfor";
-import { downloadSong } from "@/models/musicInfor";
-// import { downloadMusicCheck } from "@/models/musicInfor/download";
+import { musicYoutubeSearch } from "../../models/musicInfor";
+import { downloadSong } from "../../models/musicInfor";
+// import { downloadMusicCheck } from "../../models/musicInfor/download";
 
 export const musicSearchController = express.Router({ mergeParams: true });
 export const musicDownloadController = express.Router({ mergeParams: true });

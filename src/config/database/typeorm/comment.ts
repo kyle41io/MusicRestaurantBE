@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn ,ManyToOne} from "typeorm";
-import { COMMENT_VALIDATE } from "@/config/helper/constant";
+import { COMMENT_VALIDATE } from "../../helper/constant";
 import { Userinfor } from "./user";
 import { PlayList } from "./playlist";
 @Entity()

@@ -5,13 +5,13 @@ import {
   userDeleteController,
   userGetControllerId,
   userGetControllerAll
-} from "@/controllers/user/index.controller";
-import { authMutateBody } from "@/middlewares/authentication";
+} from "../controllers/user/index.controller";
+import { authMutateBody } from "../middlewares/authentication";
 const userRoute = express.Router({ mergeParams: true });
-import { schemaBodys, schemaParams } from "@/validations/validateGeneral";
-import { validateBody } from "@/middlewares/validateBody";
-import { validateParams } from "@/middlewares/validateParams";
-import { validateUsernameExist } from "@/middlewares/RecordExist.middleware";
+import { schemaBodys, schemaParams } from "../validations/validateGeneral";
+import { validateBody } from "../middlewares/validateBody";
+import { validateParams } from "../middlewares/validateParams";
+import { validateUsernameExist } from "../middlewares/RecordExist.middleware";
 
 userRoute.get(
   "/api/users/all",

@@ -1,5 +1,5 @@
 import express, { Request, Response, Application } from "express";
-import { streamMusic } from "@/models/stream/helper";
+import { streamMusic } from "../../models/stream/helper";
 
 export const streamController= express.Router({mergeParams: true});
 export const streamControllerpost= express.Router({mergeParams: true});

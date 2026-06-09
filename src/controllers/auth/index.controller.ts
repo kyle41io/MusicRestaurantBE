@@ -1,6 +1,6 @@
 import express, { Request, Response, Application } from "express";
 import jwt from "jsonwebtoken";
-import { authSignIn } from "@/models/auth";
+import { authSignIn } from "../../models/auth";
 import dotenv from "dotenv";
 dotenv.config();
 const secretKey = `${process.env.PASSWORD_KEY}`;

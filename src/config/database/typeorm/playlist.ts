@@ -6,7 +6,7 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import { PLAYLISTNAME_VALIDATE } from "@/config/helper/constant";
+import { PLAYLISTNAME_VALIDATE } from "../../helper/constant";
 import { Userinfor } from "./user";
 
 @Entity()

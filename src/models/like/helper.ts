@@ -2,9 +2,9 @@ import {
   likeListRepository,
   userRepository,
   playlistRepository,
-} from "@/config/database/typeorm";
-import { LikePlaylist } from "@/config/database/typeorm/likePlaylist";
-import { COMMENT_LIMIT } from "@/config/helper/constant";
+} from "../../config/database/typeorm";
+import { LikePlaylist } from "../../config/database/typeorm/likePlaylist";
+import { COMMENT_LIMIT } from "../../config/helper/constant";
 export const makeNewLikeHelper = async ({
   userId,
   playlistId,

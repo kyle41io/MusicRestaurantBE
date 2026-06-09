@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import {
   validateYoutubeId,
   validateYoutubeSongList,
-} from "@/validations/youtube.validate";
+} from "../validations/youtube.validate";
 
 export const checkYoutubeId = async (
   req: Request,

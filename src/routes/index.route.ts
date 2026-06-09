@@ -6,7 +6,7 @@ import streamRoute from "./stream.route";
 import commentRoute from "./comment.route";
 import playlistRoute from "./playlist.route";
 import likeRoute from "./like.route";
-import { requireAuth } from "@/middlewares/authentication";
+import { requireAuth } from "../middlewares/authentication";
 import roomRoute from "./room.route";
 import uploadRoute from "./upload.route";
 const expressRoute= express.Router({mergeParams: true});

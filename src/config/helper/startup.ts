@@ -1,4 +1,4 @@
-import { dataSource } from "@/config/database/typeorm";
+import { dataSource } from "../database/typeorm";
 
 let connectionPromise: Promise<typeof dataSource> | null = null;
 

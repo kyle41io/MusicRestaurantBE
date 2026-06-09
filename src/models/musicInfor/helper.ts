@@ -1,8 +1,8 @@
 import * as yt from "youtube-search-without-api-key";
 import axios from "axios";
-import { MUSIC_PAGE } from "@/config/helper/constant";
-import { regex5minLess } from "@/validations/regex.validate";
-import { checkDuration } from "@/validations/youtube.validate";
+import { MUSIC_PAGE } from "../../config/helper/constant";
+import { regex5minLess } from "../../validations/regex.validate";
+import { checkDuration } from "../../validations/youtube.validate";
 import { downloadMusic } from "./download";
 
 const parseYouTubeDuration = (duration: string) => {

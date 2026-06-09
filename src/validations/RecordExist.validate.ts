@@ -1,6 +1,6 @@
-import { readOnePlaylistId } from "@/models/playlist";
-import { checkUsernameExist } from "@/models/user/helper";
-import { likeListRepository } from "@/config/database/typeorm";
+import { readOnePlaylistId } from "../models/playlist";
+import { checkUsernameExist } from "../models/user/helper";
+import { likeListRepository } from "../config/database/typeorm";
 
 export const usernameExist = async (username: string) => {
   const check = await checkUsernameExist(username);

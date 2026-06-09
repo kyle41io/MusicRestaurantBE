@@ -1,4 +1,4 @@
-import "tsconfig-paths/register";
+import "./register-alias";
 import express, { Request, Response, Application } from "express";
 import configApp from "./config/index";
 import expressRoute from "./routes/index.route";

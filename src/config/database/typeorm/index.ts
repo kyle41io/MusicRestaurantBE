@@ -17,7 +17,7 @@ export const dataSource = new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  synchronize: true,
+  synchronize: false,
   logging: true,
   host: isLocalhost ? process.env.POSTGRES_LOCAL : process.env.POSTGRES_HOST, // for docker-compose up db, to just run the database
   entities: [Userinfor, PlayList, Comment, LikePlaylist, YoutubeCache],
@@ -25,5 +25,5 @@ export const dataSource = new DataSource({
 export const userRepository = dataSource.getRepository("Userinfor");
 export const playlistRepository = dataSource.getRepository("play_list");
 export const commentlistRepository = dataSource.getRepository("comment");
-export const likeListRepository = dataSource.getRepository("like");
+export const likeListRepository = dataSource.getRepository("like_playlist");
 export const ytCacheRepository = dataSource.getRepository("youtube_cache");

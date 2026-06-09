@@ -27,7 +27,7 @@ export const readCommentFromUserAndPlaylist_TimeSort = async ({
     return { success: true, data: result, message: "No comment found" };
   return {
     success: true,
-    data: { page, data: result, rowCount: result.rowCount },
+    data: { page, data: result.data, rowCount: result.rowCount },
   };
 };
 
@@ -69,7 +69,7 @@ export const readCommentFromUser_PlaylistSort = async ({
     return { success: true, data: result, message: "No comment found" };
   return {
     success: true,
-    data: { page, data: result, rowCount: result.rowCount },
+    data: { page, data: result.data, rowCount: result.rowCount },
   };
 };
 

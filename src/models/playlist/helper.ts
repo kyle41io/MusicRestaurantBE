@@ -18,13 +18,18 @@ export const addNewPlaylistHelper = async ({
   image: string;
   userId: number;
 }) => {
-  const newPlaylist = new PlayList();
-  newPlaylist.image = image;
-  newPlaylist.songList = songList;
-  newPlaylist.userId = userId;
-  newPlaylist.playlistName = playlistName;
-  const data = await playlistRepository.save(newPlaylist);
-  return data;
+  try {
+    const newPlaylist = new PlayList();
+    newPlaylist.image = image;
+    newPlaylist.songList = songList;
+    newPlaylist.userId = userId;
+    newPlaylist.playlistName = playlistName;
+    const data = await playlistRepository.save(newPlaylist);
+    return data;
+  } catch (err) {
+    if (err) console.log(err);
+    return null;
+  }
 };
 
 export const readPlaylistByIdHelper = async (id: number) => {

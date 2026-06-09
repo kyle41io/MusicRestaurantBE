@@ -4,6 +4,7 @@ import {
   deleteLikeController,
   readLikeController_Playlist,
   readLikeController_User,
+  readLikeController_Query,
 } from "@/controllers/like";
 import { validateLikeExist } from "@/middlewares/RecordExist.middleware";
 const likeRoute = express.Router({ mergeParams: true });
@@ -17,6 +18,13 @@ import {
 } from "@/validations/validateGeneral";
 import { validateQuery } from "@/middlewares/validateQuery";
 import { authMutateBody } from "@/middlewares/authentication";
+
+likeRoute.get(
+  "/api/likes",
+  validateQuery(schemaQuerys.pageCheck),
+  validateQuery(schemaQuerys.sortCheck),
+  readLikeController_Query
+);
 
 likeRoute.get(
   "/api/likes/:playlistId/playlist",

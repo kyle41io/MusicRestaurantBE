@@ -64,7 +64,11 @@ export const readPlaylistFromUserLike = async ({
       data: { rowCount: result.rowCount, data: result.data, page: result.page },
     };
   }
-  return { success: false, data: null, message: "No one like yet" };
+  return {
+    success: true,
+    data: { rowCount: result.rowCount, data: [], page: result.page },
+    message: "No one like yet",
+  };
 };
 
 export const removeLike = async ({

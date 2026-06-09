@@ -8,26 +8,38 @@ export const userGetControllerId = express.Router({ mergeParams: true });
 export const userEditController = express.Router({ mergeParams: true });
 export const userDeleteController = express.Router({ mergeParams: true });
 const secretKey = `${process.env.PASSWORD_KEY}`;
+const DEFAULT_AVATAR =
+  "https://ui-avatars.com/api/?name=Music+Restaurant&background=ff6b00&color=fff";
+
+const toPublicUser = (user: any) => {
+  if (!user) return user;
+  const { password, ...publicUser } = user;
+  return publicUser;
+};
 
 userGetControllerId.use(async (req: Request, res: Response) => {
   const id = parseInt(req.params.id as string);
   const result = await readUserId(id);
-  if (result.success) return res.status(200).send(result.data);
+  if (result.success) return res.status(200).send(toPublicUser(result.data));
   else return res.status(204).send({});
 });
 
 userGetControllerAll.use(async (req: Request, res: Response) => {
   const result = await readUserAll();
-  console.log('hi');
   
-  if (result.success) return res.status(200).send(result.data);
+  if (result.success) return res.status(200).send((result.data || []).map(toPublicUser));
   else return res.status(204).send({});
 });
 
 userNewController.use(async (req: Request, res: Response) => {
   const { username, name, password, image } = req.body;
-  const result = await makeUser({ name, password, username, avatar: image });
-  if (result.success) return res.status(201).send(result.data);
+  const result = await makeUser({
+    name,
+    password,
+    username,
+    avatar: image || DEFAULT_AVATAR,
+  });
+  if (result.success) return res.status(201).send(toPublicUser(result.data));
   else return res.status(401).send({ message: result.message });
 });
 
@@ -43,7 +55,7 @@ userEditController.use(async (req: Request, res: Response) => {
     id: userId,
     avatar: image,
   });
-  if (result.success) return res.status(201).send(result.data);
+  if (result.success) return res.status(201).send(toPublicUser(result.data));
   else return res.status(401).send({ message: result.message });
 });
 

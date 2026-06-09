@@ -45,8 +45,8 @@ export class PlayList {
   @JoinColumn({ name: 'user_id' })
   user: Userinfor;
   
-  @Column("varchar", { length: PLAYLISTNAME_VALIDATE.max, array: true })
-  songList: string[]; // 64 is the size of hash string
+  @Column("text", { array: true, default: () => "'{}'" })
+  songList: string[];
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;

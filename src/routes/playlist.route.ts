@@ -21,7 +21,22 @@ import { validateYoutubeSongList } from "@/validations/youtube.validate";
 import { checkYoutubeIdList } from "@/middlewares/youtube.middleware";
 
 playlistRoute.get(
-  "/playlists/:id",
+  "/api/playlists",
+  validateQuery(schemaQuerys.pageCheck),
+  validateQuery(schemaQuerys.sortCheck),
+  playlistUserControllerReadTime
+);
+
+playlistRoute.get(
+  "/api/users/:userId/playlists",
+  validateParams(schemaParams.userIdCheck),
+  validateQuery(schemaQuerys.pageCheck),
+  validateQuery(schemaQuerys.sortCheck),
+  playlistUserControllerReadTime
+);
+
+playlistRoute.get(
+  "/api/playlists/:id",
   validateParams(schemaParams.idCheck),
   playlistGetController
 );
@@ -70,6 +85,21 @@ playlistRoute.post(
 
 playlistRoute.put(
   "/api/playlists",
+  validateBody(schemaBodys.playlistNameCheck),
+  validateBody(schemaBodys.imageCheck),
+  validateBody(schemaBodys.songListCheck),
+  validateBody(schemaBodys.idCheck),
+  authMutateBody,
+  checkYoutubeIdList,
+  playlistEditController
+);
+playlistRoute.put(
+  "/api/playlists/:id",
+  validateParams(schemaParams.idCheck),
+  (req, res, next) => {
+    req.body.id = parseInt(req.params.id);
+    next();
+  },
   validateBody(schemaBodys.playlistNameCheck),
   validateBody(schemaBodys.imageCheck),
   validateBody(schemaBodys.songListCheck),

@@ -5,6 +5,7 @@ import {
   readCommentController_UserSort,
   readCommentController_TimeSort,
   readCommentController_PlaylistSort,
+  readCommentController_Query,
   editCommentController,
   deleteCommentController,
 } from "@/controllers/comment";
@@ -18,6 +19,13 @@ import {
 } from "@/validations/validateGeneral";
 import { authMutateBody } from "@/middlewares/authentication";
 import { validatePlaylistExist } from "@/middlewares/RecordExist.middleware";
+
+commentRoute.get(
+  "/api/comments",
+  validateQuery(schemaQuerys.pageCheck),
+  validateQuery(schemaQuerys.sortCheck),
+  readCommentController_Query
+);
 
 commentRoute.get(
   "/api/comments/user/:userId/playlist/:playlistId/time",
@@ -47,6 +55,19 @@ commentRoute.post(
 );
 commentRoute.put(
   "/api/comments",
+  validateBody(schemaBodys.playlistIdCheck),
+  validateBody(schemaBodys.contentCheck),
+  validateBody(schemaBodys.idCheck),
+  authMutateBody,
+  editCommentController
+);
+commentRoute.put(
+  "/api/comments/:id",
+  validateParams(schemaParams.idCheck),
+  (req, res, next) => {
+    req.body.id = parseInt(req.params.id);
+    next();
+  },
   validateBody(schemaBodys.playlistIdCheck),
   validateBody(schemaBodys.contentCheck),
   validateBody(schemaBodys.idCheck),

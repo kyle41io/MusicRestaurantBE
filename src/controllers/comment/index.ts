@@ -24,6 +24,9 @@ export const readCommentController_UserSort = express.Router({
 export const readCommentController_PlaylistSort = express.Router({
   mergeParams: true,
 });
+export const readCommentController_Query = express.Router({
+  mergeParams: true,
+});
 
 export const editCommentController = express.Router({ mergeParams: true });
 export const deleteCommentController = express.Router({ mergeParams: true });
@@ -75,6 +78,22 @@ readCommentController_PlaylistSort.use(async (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string);
 
   const result = await readCommentFromUser_PlaylistSort({ page, sort, userId });
+  if (result.success) return res.status(200).send(result.data);
+  else return res.status(204).send({});
+});
+
+readCommentController_Query.use(async (req: Request, res: Response) => {
+  const playlistId = parseInt(req.query.playlistId as string) || 0;
+  const userId = parseInt(req.query.userId as string) || 0;
+  const sort = req.query.sort === "ASC" ? "ASC" : "DESC";
+  const page = parseInt(req.query.page as string) || 1;
+
+  const result = await readCommentFromUserAndPlaylist_TimeSort({
+    page,
+    playlistId,
+    sort,
+    userId,
+  });
   if (result.success) return res.status(200).send(result.data);
   else return res.status(204).send({});
 });

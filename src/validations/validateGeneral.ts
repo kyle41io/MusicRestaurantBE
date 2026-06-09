@@ -36,7 +36,7 @@ export const schemaBodys = {
       .required(), //  need aditional check if the id is youtubeId
   }),
   imageCheck: Joi.object().keys({
-    image: Joi.string().required(), //  need aditional check if the id is youtubeId
+    image: Joi.string().allow("").optional(), // avatar/cover upload is optional
     // image: Joi.string().required().regex(regexUrlImage), //  need aditional check if the id is youtubeId
   }),
   playlistNameCheck: Joi.object().keys({

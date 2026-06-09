@@ -31,7 +31,7 @@ playlistGetController.use(async (req: Request, res: Response) => {
 playlistUserControllerReadTime.use(async (req: Request, res: Response) => {
   const userId = parseInt(req.params.userId);
 
-  const sort = req.params.sort;
+  const sort = req.query.sort;
   const sortCast = sort === "DESC" ? sort : "ASC";
 
   const page = parseInt(req.query.page as string);
@@ -54,7 +54,8 @@ playlistUserControllerReadTime.use(async (req: Request, res: Response) => {
 
 playlistNewController.use(async (req: Request, res: Response) => {
   const result = await playListMaking(req.body);
-  res.status(201).send(result.data);
+  if (result.success) return res.status(201).send(result.data);
+  return res.status(400).send({ message: result.message });
 });
 
 playlistDeleteController.use(async (req: Request, res: Response) => {

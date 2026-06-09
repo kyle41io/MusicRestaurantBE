@@ -166,12 +166,12 @@ paths:
       summary: Make new user
       description: make new user
       requestBody:
-        description: "Must have username, password"
+        description: "Must have username, name, password. image is optional."
         content:
           application/json:
             schema:
               type: object
-              $ref: "#/components/schemas/UserAll"
+              $ref: "#/components/schemas/UserCreate"
         required: true
       responses:
         "201":

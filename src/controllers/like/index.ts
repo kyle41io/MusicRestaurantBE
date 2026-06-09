@@ -14,6 +14,9 @@ export const readLikeController_User = express.Router({
 export const readLikeController_Playlist = express.Router({
   mergeParams: true,
 });
+export const readLikeController_Query = express.Router({
+  mergeParams: true,
+});
 
 export const deleteLikeController = express.Router({ mergeParams: true });
 
@@ -33,6 +36,16 @@ readLikeController_Playlist.use(async (req: Request, res: Response) => {
     : 0;
   const sort = req.query.sort as "DESC" | "ASC";
   const page = parseInt(req.query.page as string);
+
+  const result = await readPlaylistFromUserLike({ playlistId, page, sort });
+  if (result.success) return res.status(200).send(result.data);
+  else return res.status(400).send({ message: result.message });
+});
+
+readLikeController_Query.use(async (req: Request, res: Response) => {
+  const playlistId = parseInt(req.query.playlistId as string) || 0;
+  const sort = req.query.sort === "ASC" ? "ASC" : "DESC";
+  const page = parseInt(req.query.page as string) || 1;
 
   const result = await readPlaylistFromUserLike({ playlistId, page, sort });
   if (result.success) return res.status(200).send(result.data);
